@@ -22,7 +22,7 @@ Light Host Reforge
 - 暂时禁用了对VST2/AU格式插件的支持
 - 目前仅在Windows上完成构建和测试，之后会在Linux上构建，对于macOS无法提供支持，因为我没有苹果设备
 
-## 构建
+### 构建
 
 Windows（使用VS2022 + vcpkg）：
 
@@ -33,6 +33,10 @@ cd build
 cmake -DCMAKE_TOOLCHAIN_FILE=path\to\vcpkg.cmake ..
 MSBuild .\LightHostReforge.sln /p:Configuration=Release
 ```
+
+### 屏幕截图
+
+![Light Host Reforge](Resources/LightHostReforge.png)
 
 ---
 

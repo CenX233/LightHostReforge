@@ -1,4 +1,4 @@
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <juce_audio_processors/juce_audio_processors.h>
 #include "IconMenu.hpp"
 
 #if ! (JUCE_PLUGINHOST_VST || JUCE_PLUGINHOST_VST3 || JUCE_PLUGINHOST_AU)
@@ -20,13 +20,13 @@ public:
 
         checkArguments(&options);
 
-        appProperties = new ApplicationProperties();
+        appProperties = std::make_unique<ApplicationProperties>();
         appProperties->setStorageParameters (options);
 
         LookAndFeel::setDefaultLookAndFeel (&lookAndFeel);
 
-        mainWindow = new IconMenu();
-		#if JUCE_MAC
+        mainWindow = std::make_unique<IconMenu>();
+		#if JUCE_MAC || JUCE_LINUX
 			Process::setDockIconVisible(false);
 		#endif
     }
@@ -44,18 +44,18 @@ public:
     }
 
     const String getApplicationName() override       { return "Light Host"; }
-    const String getApplicationVersion() override    { return ProjectInfo::versionString; }
+    const String getApplicationVersion() override    { return "1.2.0"; }
     bool moreThanOneInstanceAllowed() override       {
         StringArray multiInstance = getParameter("-multi-instance");
         return multiInstance.size() == 2;
     }
 
     ApplicationCommandManager commandManager;
-    ScopedPointer<ApplicationProperties> appProperties;
-    LookAndFeel_V3 lookAndFeel;
+    std::unique_ptr<ApplicationProperties> appProperties;
+    LookAndFeel_V4 lookAndFeel;
 
 private:
-    ScopedPointer<IconMenu> mainWindow;
+    std::unique_ptr<IconMenu> mainWindow;
 
     StringArray getParameter(String lookFor) {
         StringArray parameters = getCommandLineParameterArray();
@@ -87,3 +87,4 @@ ApplicationCommandManager& getCommandManager()      { return getApp().commandMan
 ApplicationProperties& getAppProperties()           { return *getApp().appProperties; }
 
 START_JUCE_APPLICATION (PluginHostApp)
+

@@ -34,6 +34,10 @@ cmake -DCMAKE_TOOLCHAIN_FILE=path\to\vcpkg.cmake ..
 MSBuild .\LightHostReforge.sln /p:Configuration=Release
 ```
 
+### Screenshot
+
+![Light Host Reforge](Resources/LightHostReforge.png)
+
 ---
 
 # Light Host
